@@ -1,13 +1,13 @@
 #include "pushswap.h"
 
 
-void	swap(t_list dlist, int l)
+void	swap(t_list *dlist, int l)
 {
 	int	tmp;
 
-	tmp = dlist.list[l][0];
-	dlist.list[l][0] = dlist.list[l][1];
-	dlist.list[l][1] = tmp;
+	tmp = dlist->list[l][0];
+	dlist->list[l][0] = dlist->list[l][1];
+	dlist->list[l][1] = tmp;
 }
 
 void	rotate(t_list dlist, int l, int dir)
@@ -55,18 +55,18 @@ int	push(t_list *dlist, int l_from)
 	tmpt = (int *)malloc(sizeof(int) * (dlist->len[l_to] + 1));
 	if (!tmpt)
 		return(free(tmpf), 0);
-	dlist->len[l_from]--;
-	dlist->len[l_to]++;
 	i = 0;
 	tmpt[0] = dlist->list[l_from][0];
-	while (dlist->list[l_from][i + 1] || dlist->list[l_to][i])
+	while (dlist->len[l_from] > i + 1 || dlist->len[l_to] > i)
 	{
-		if (dlist->list[l_from][i + 1])
+		if (dlist->len[l_from] > i + 1)
 			tmpf[i] = dlist->list[l_from][i + 1];
-		if (dlist->list[l_to][i])
+		if (dlist->len[l_to] > i)
 			tmpt[i + 1] = dlist->list[l_to][i];
 		i++;
 	}
+	dlist->len[l_from]--;
+	dlist->len[l_to]++;
 	free(dlist->list[l_from]);
 	dlist->list[l_from] = tmpf;
 	free(dlist->list[l_to]);
@@ -74,46 +74,29 @@ int	push(t_list *dlist, int l_from)
 	return (1);
 }
 
-int	main()
-{
-	int	i = 0;
-	t_list	dlist;
+// int	main()
+// {
+// 	int	i = 0;
+// 	t_list	dlist;
 	
-	dlist.list[0] = (int *)malloc(sizeof(int) * 5);
-	dlist.len[0] = 5;
-	dlist.list[1] = (int *)malloc(sizeof(int) * 0);
-	dlist.len[1] = 0;
+// 	dlist.list[0] = (int *)malloc(sizeof(int) * 5);
+// 	dlist.len[0] = 5;
+// 	dlist.list[1] = (int *)malloc(sizeof(int) * 0);
+// 	dlist.len[1] = 0;
 
-	while (i < dlist.len[0])
-	{
-		dlist.list[0][i] = i + 1;
-		i++;
-	}
-	i = 0;
-	//swap(dlist, 0);
-	push(&dlist, 0);
-	rotate(dlist, 0, 1);
-	while (dlist.list[0][i] || dlist.list[1][i])
-	{
-		printf("%d	", dlist.list[0][i]);
-		printf("%d\n", dlist.list[1][i]);
-		i++;
-	}
-}
-
-
-
-
-
-
-
-
-// int	*dswap(int *lista,int *listb)
-// {
-
-// }
-
-// int	*drotate(int *lista, int *listb, int dir, int nbr)
-// {
-
+// 	while (i < dlist.len[0])
+// 	{
+// 		dlist.list[0][i] = i + 1;
+// 		i++;
+// 	}
+// 	i = 0;
+// 	//swap(dlist, 0);
+// 	push(&dlist, 0);
+// 	rotate(dlist, 0, 1);
+// 	while (dlist.list[0][i] || dlist.list[1][i])
+// 	{
+// 		printf("%d	", dlist.list[0][i]);
+// 		printf("%d\n", dlist.list[1][i]);
+// 		i++;
+// 	}
 // }
