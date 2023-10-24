@@ -20,5 +20,10 @@ int	s_exist(t_list dlist, int i, int len);
 int	series(t_list *dlist, int op);
 int	ft_abs(int nbr);
 
+int	detach(t_list *dlist);
+
+int	*assign_value(t_list dlist);
+int	smallest(int *list, int len);
+
 
 #endif
