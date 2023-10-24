@@ -1,4 +1,4 @@
-#include "pushswap.h"
+#include "push_swap.h"
 
 
 void	swap(t_list *dlist, int l)
@@ -30,7 +30,7 @@ void	rotate(t_list dlist, int l, int dir)
 	{
 		tmp = dlist.list[l][dlist.len[l] - 1];
 		i = dlist.len[l] - 1;
-		while (i >= 0)
+		while (i > 0)
 		{
 			dlist.list[l][i] = dlist.list[l][i - 1];
 			i--;

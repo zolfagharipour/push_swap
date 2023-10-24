@@ -1,4 +1,4 @@
-#include "pushswap.h"
+#include "push_swap.h"
 
 static int	ft_init(t_list *dlist)
 {

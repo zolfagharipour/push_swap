@@ -1,4 +1,4 @@
-#include "pushswap.h"
+#include "push_swap.h"
 
 static int	nbr_moves(t_list dlist, int i, int j)
 {
@@ -58,22 +58,22 @@ static int	check_placement(t_list dlist, int i)
 	return (smallest(dlist.list[0], dlist.len[0]));
 }
 
-int	*assign_value(t_list dlist)
+int	*assign_values(t_list dlist)
 {
-	int	*tmp;
+	int	*values;
 	int	i;
 
 	i = 0;
-	tmp = (int *)malloc(sizeof(int) * dlist.len[1]);
-	if (!tmp)
+	values = (int *)malloc(sizeof(int) * dlist.len[1]);
+	if (!values)
 		return (NULL);
 	while(i < dlist.len[1])
 	{
-		tmp[i] = check_placement(dlist, i);
-		tmp[i] = nbr_moves(dlist, tmp[i], i);
+		values[i] = check_placement(dlist, i);
+		values[i] = nbr_moves(dlist, values[i], i);
 		i++;
 	}
-	return (tmp);
+	return (values);
 }
 
 void	print_list(t_list dlist, int x, int *tmp)
@@ -145,7 +145,7 @@ int	main()
 	//print_list(dlist, x, values);
 	printf("\n \n");
 	detach (&dlist);
-	values = assign_value(dlist);
+	values = assign_values(dlist);
 	
 	
 	print_list(dlist, x, values);
