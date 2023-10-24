@@ -31,15 +31,16 @@ static int	swap_series(t_list *dlist)
 	i = 0;
 	swap(dlist, 0);
 
-	while (!s_exist(*dlist, i, dlist->len[0]) && i < dlist->len[0])
-		i++;
-	if (i == dlist->len[0])
+	if (s_exist(*dlist, -1, dlist->len[0]) && i < dlist->len[0])
+	{
+		printf("sa\n");
+		return (1);
+	}	
+	else
 	{
 		swap(dlist, 0);
 		return (0);
 	}
-	printf("sa\n");
-	return (1);
 
 }
 
@@ -58,11 +59,11 @@ static int	swap_check(t_list *dlist, int i_serie)
 		swap(dlist, 1);
 		printf("ss\n");
 	}
-	else
-	{
-		swap(dlist, 0);
-		printf("sa\n");
-	}
+	// else
+	// {
+	// 	swap(dlist, 0);
+	// 	printf("sa\n");
+	// }
 	return (1);
 }
 
@@ -71,14 +72,14 @@ int	detach(t_list *dlist)
 	int	i_serie;
 
 	i_serie = ft_init(dlist);
-	while(0 < i_serie)
+	while(0 <= i_serie)
 	{
 		swap_check(dlist, i_serie);
 		if (s_exist(*dlist, -1, dlist->len[0]))
 			return (1);
 		if (!push(dlist, 0))
-			return (0);
-		printf("pa\n");
+			return (free(dlist->list[0]), free(dlist->list[1]), 0);
+		printf("pb\n");
 		i_serie--;
 		if (s_exist(*dlist, -1, dlist->len[0]))
 			return (1);

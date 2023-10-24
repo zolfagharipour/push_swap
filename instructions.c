@@ -37,8 +37,6 @@ void	rotate(t_list dlist, int l, int dir)
 		}
 		dlist.list[l][0] = tmp;
 	}
-		
-	
 }
 
 int	push(t_list *dlist, int l_from)

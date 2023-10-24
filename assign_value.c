@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-static int	nbr_moves(t_list dlist, int i, int j)
+int	nbr_moves(t_list dlist, int i, int j)
 {
 	int	move_up;
 	int	move_down;
@@ -29,20 +29,20 @@ static int	nbr_moves(t_list dlist, int i, int j)
 int	smallest(int *list, int len)
 {
 	int	j;
-	int	tmp;				//(len[1] - j) same		len[0] - i + j
+	int	tmp;
 
-	j = 0;
+	j = 1;
 	tmp = 0;
 	while (j < len)
 	{
-		if (list[tmp] >= list[j])
+		if (list[tmp] > list[j])
 			tmp = j;
 		j++;
 	}
 	return (tmp);
 }
 
-static int	check_placement(t_list dlist, int i)
+int	check_placement(t_list dlist, int i)
 {
 	int nbr;
 	int	j;
@@ -76,81 +76,81 @@ int	*assign_values(t_list dlist)
 	return (values);
 }
 
-void	print_list(t_list dlist, int x, int *tmp)
-{
-	int	i = 0;
-	printf("\n");
-	while (i < x)
-	{
-		if (dlist.len[0] > i)
-			printf("%d	", dlist.list[0][i]);
-		else
-			printf(".	");
-		if (dlist.len[1] > i)
-			printf("%d	", dlist.list[1][i]);
-		else
-			printf(".	");		
-		if (dlist.len[1] > i)
-			printf("%d\n", tmp[i]);
-		else
-			printf(".\n");
-		i++;
-	}
-	printf("\n");
-}
+// void	print_list(t_list dlist, int x, int *tmp)
+// {
+// 	int	i = 0;
+// 	printf("\n");
+// 	while (i < x)
+// 	{
+// 		if (dlist.len[0] > i)
+// 			printf("%d	", dlist.list[0][i]);
+// 		else
+// 			printf(".	");
+// 		if (dlist.len[1] > i)
+// 			printf("%d	", dlist.list[1][i]);
+// 		else
+// 			printf(".	");		
+// 		if (dlist.len[1] > i)
+// 			printf("%d\n", tmp[i]);
+// 		else
+// 			printf(".\n");
+// 		i++;
+// 	}
+// 	printf("\n");
+// }
 
-int	main()
-{
-	int	i = 0;
-	int x = 9;
-	int	*values;
-	t_list	dlist;
+// int	main()
+// {
+// 	int	i = 0;
+// 	int x = 9;
+// 	int	*values;
+// 	t_list	dlist;
 
-	//dlist.len = (int *)malloc(sizeof(int) * 2);
-	//dlist.len[1] = (int)malloc(sizeof(int));
-	dlist.list[0] = (int *)malloc(sizeof(int) * x);
-	dlist.len[0] = x;
-	dlist.list[1] = (int *)malloc(sizeof(int) * 0);
-	dlist.len[1] = 0;
+// 	//dlist.len = (int *)malloc(sizeof(int) * 2);
+// 	//dlist.len[1] = (int)malloc(sizeof(int));
+// 	dlist.list[0] = (int *)malloc(sizeof(int) * x);
+// 	dlist.len[0] = x;
+// 	dlist.list[1] = (int *)malloc(sizeof(int) * 0);
+// 	dlist.len[1] = 0;
 
-	while (i < dlist.len[0])
-	{
-		dlist.list[0][i] = i + 1;
-		i++;
-	}
-	dlist.list[0][0] =18;
-	dlist.list[0][1] =2;
-	dlist.list[0][2] =8;
-	dlist.list[0][3] =100;
-	dlist.list[0][4] =4;
-	dlist.list[0][5] =10;
-	dlist.list[0][6] =12;
-	dlist.list[0][7] =114;
-	dlist.list[0][8] =16;
+// 	while (i < dlist.len[0])
+// 	{
+// 		dlist.list[0][i] = i + 1;
+// 		i++;
+// 	}
+// 	dlist.list[0][0] =18;
+// 	dlist.list[0][1] =2;
+// 	dlist.list[0][2] =8;
+// 	dlist.list[0][3] =100;
+// 	dlist.list[0][4] =4;
+// 	dlist.list[0][5] =10;
+// 	dlist.list[0][6] =12;
+// 	dlist.list[0][7] =114;
+// 	dlist.list[0][8] =16;
 
-	// dlist.list[1][0] =1;
-	// dlist.list[1][1] =-1;
-	// dlist.list[1][2] =15;
-	// dlist.list[1][3] =3;
-	// dlist.list[1][4] =3;
-	// dlist.list[0][5] =2;
-	// dlist.list[0][6] =1;
-	// dlist.list[0][7] =2;
-	// dlist.list[0][8] =1;
+// 	// dlist.list[1][0] =1;
+// 	// dlist.list[1][1] =-1;
+// 	// dlist.list[1][2] =15;
+// 	// dlist.list[1][3] =3;
+// 	// dlist.list[1][4] =3;
+// 	// dlist.list[0][5] =2;
+// 	// dlist.list[0][6] =1;
+// 	// dlist.list[0][7] =2;
+// 	// dlist.list[0][8] =1;
 
 
-	printf("Indext: %d\nLenght: %d\n", series(&dlist, 0), series(&dlist, 1));
+// 	printf("Indext: %d\nLenght: %d\n", series(&dlist, 0), series(&dlist, 1));
 
-	i = 0;
-	//print_list(dlist, x, values);
-	printf("\n \n");
-	detach (&dlist);
-	values = assign_values(dlist);
+// 	i = 0;
+// 	//print_list(dlist, x, values);
+// 	printf("\n \n");
+// 	detach (&dlist);
+// 	values = assign_values(dlist);
 	
 	
-	print_list(dlist, x, values);
-	free(values);
-	free(dlist.list[0]);
-	free(dlist.list[1]);
+// 	print_list(dlist, x, values);
+// 	free(values);
+// 	free(dlist.list[0]);
+// 	free(dlist.list[1]);
 
-}
+// }

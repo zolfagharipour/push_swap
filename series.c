@@ -39,8 +39,8 @@ static int	optimum(t_list dlist, int len)
 	int	opt;
 	int	ret;
 
-	if (len == 2)
-		return (dlist.len[0] - 2);
+	if (len <= 3)
+		return (dlist.len[0] - 3);
 	i = 0;
 	ret = 0;
 	opt = dlist.len[0];
@@ -63,7 +63,7 @@ int	series(t_list *dlist, int op)
 	int	i;
 
 	len = dlist->len[0];
-	while (len > 1)
+	while (len > 3)
 	{
 		i = 0;
 		while (i < dlist->len[0])
@@ -79,7 +79,10 @@ int	series(t_list *dlist, int op)
 		}
 		len--;
 	}
-	return (0);
+	if (op == 0)
+		return (optimum(*dlist, len));
+	else
+		return (len);
 }
 
 // int	main()

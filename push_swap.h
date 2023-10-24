@@ -4,6 +4,7 @@
 # include <stdio.h>
 # include <strings.h>
 # include <stdlib.h>
+#	include <time.h>
 
 typedef struct s_list{
 	int	*list[2];
@@ -24,6 +25,10 @@ int	detach(t_list *dlist);
 
 int	*assign_values(t_list dlist);
 int	smallest(int *list, int len);
+int	nbr_moves(t_list dlist, int i, int j);
+int	check_placement(t_list dlist, int i);
+
+
 
 
 #endif
