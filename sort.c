@@ -50,8 +50,6 @@ int	ft_sort(t_pushswap *dlist)
 			free(dlist->list[1]);
 			return(0);
 		}
-		// printf(">>>");
-		// print_pushswap(*dlist, values);
 		min = smallest(values, dlist->len[1]);
  		i = check_placement(*dlist, min);
 		if (dlist->len[0] - i < i)
@@ -71,4 +69,3 @@ int	ft_sort(t_pushswap *dlist)
 		rotate_print(dlist, min - dlist->len[0], 0);
 	return (1);
 }
-

@@ -3,9 +3,10 @@
 
 # include <strings.h>
 # include <stdlib.h>
-# include <unistd.h>
 # include "libft/libft.h"
-#	include <stdio.h>
+# include <unistd.h>
+# include "get_next_line/get_next_line.h"
+# 	include <stdio.h>
 #	include <time.h>
 
 typedef struct s_pushswap{
@@ -15,7 +16,7 @@ typedef struct s_pushswap{
 } t_pushswap;
 
 
-int	push(t_pushswap *dlist, int l_to);
+int		push(t_pushswap *dlist, int l_to);
 void	rotate(t_pushswap dlist, int l, int dir);
 void	swap(t_pushswap *dlist, int l);
 
@@ -35,7 +36,13 @@ int	duplicate(t_pushswap dlist);
 int	ft_read(t_pushswap *dlist, int ac, char **av);
 int	init(t_pushswap *dlist, int ac);
 
-	void	print_pushswap(t_pushswap dlist, int *values);
+void	print_pushswap(t_pushswap dlist, int *values);
+
+char	*get_next_line(int fd);
+int	instruction_read(t_pushswap *dlist);
+
+
+
 
 
 #endif

@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-static int	duplicate(t_pushswap dlist)
+int	duplicate(t_pushswap dlist)
 {
 	int	i;
 	int	j;
@@ -15,7 +15,7 @@ static int	duplicate(t_pushswap dlist)
 			{
 				free(dlist.list[0]);
 				free(dlist.list[1]);
-				write(2, "Error3\n", 7);
+				write(2, "Error\n", 7);
 				return (0);
 			}
 			j++;
@@ -24,7 +24,7 @@ static int	duplicate(t_pushswap dlist)
 	}
 	return (1);
 }
-static int	ft_read(t_pushswap *dlist, int ac, char **av)
+int	ft_read(t_pushswap *dlist, int ac, char **av)
 {
 	int		i;
 	int		j;
@@ -40,7 +40,7 @@ static int	ft_read(t_pushswap *dlist, int ac, char **av)
 			// printf("[%s]", av[1]);
 			if (!ft_isdigit(av[i][j]) && (j < 0 || av[i][j] != '-'))
 			{
-				write(2, "Error1\n", 7);	
+				write(2, "Error\n", 7);	
 				return (free(dlist->list[0]), free(dlist->list[1]), 0);
 			}
 			j++;
@@ -50,7 +50,7 @@ static int	ft_read(t_pushswap *dlist, int ac, char **av)
 			return(free(dlist->list[0]), free(dlist->list[1]), 0);
 		if (ft_strncmp(av[i], tmp, 10))
 		{
-			write(2, "Error2\n", 7);
+			write(2, "Error\n", 7);
 			return (free(dlist->list[0]), free(dlist->list[1]), 0);
 		}
 		free(tmp);
@@ -60,7 +60,7 @@ static int	ft_read(t_pushswap *dlist, int ac, char **av)
 	return (1);
 }
 
-static int	init(t_pushswap *dlist, int ac)
+int	init(t_pushswap *dlist, int ac)
 {
 	if (ac == 1)
 		return (0);
