@@ -18,15 +18,15 @@ int	duplicate(t_pushswap dlist)
 	int	j;
 
 	i = 0;
-	while (i < dlist.len[0] - 1)
+	while (i < dlist.len[A] - 1)
 	{
 		j = i + 1;
-		while (j < dlist.len[0])
+		while (j < dlist.len[A])
 		{
-			if (dlist.list[0][i] == dlist.list[0][j])
+			if (dlist.list[A][i] == dlist.list[A][j])
 			{
-				free(dlist.list[0]);
-				free(dlist.list[1]);
+				free(dlist.list[A]);
+				free(dlist.list[B]);
 				write(2, "Error\n", 7);
 				return (0);
 			}
@@ -52,20 +52,20 @@ int	ft_read(t_pushswap *dlist, int ac, char **av)
 			if (!ft_isdigit(av[i][j]) && (j < 0 || av[i][j] != '-'))
 			{
 				write(2, "Error\n", 7);
-				return (free(dlist->list[0]), free(dlist->list[1]), 0);
+				return (free(dlist->list[A]), free(dlist->list[B]), 0);
 			}
 			j++;
 		}
 		tmp = ft_itoa(ft_atoi(av[i]));
 		if (!tmp)
-			return (free(dlist->list[0]), free(dlist->list[1]), 0);
+			return (free(dlist->list[A]), free(dlist->list[B]), 0);
 		if (ft_strncmp(av[i], tmp, 10))
 		{
 			write(2, "Error\n", 7);
-			return (free(dlist->list[0]), free(dlist->list[1]), 0);
+			return (free(dlist->list[A]), free(dlist->list[B]), 0);
 		}
 		free(tmp);
-		dlist->list[0][i - 1] = ft_atoi(av[i]);
+		dlist->list[A][i - 1] = ft_atoi(av[i]);
 		i++;
 	}
 	return (1);
@@ -75,13 +75,13 @@ int	init(t_pushswap *dlist, int ac)
 {
 	if (ac == 1)
 		return (0);
-	dlist->list[0] = (int *)malloc(sizeof(int) * (ac - 1));
-	if (!dlist->list[0])
+	dlist->list[A] = (int *)malloc(sizeof(int) * (ac - 1));
+	if (!dlist->list[A])
 		return (0);
-	dlist->len[0] = ac - 1;
-	dlist->list[1] = (int *)malloc(0);
-	if (!dlist->list[0])
-		return (free(dlist->list[0]), 0);
-	dlist->len[1] = 0;
+	dlist->len[A] = ac - 1;
+	dlist->list[B] = (int *)malloc(0);
+	if (!dlist->list[A])
+		return (free(dlist->list[A]), 0);
+	dlist->len[B] = 0;
 	return (1);
 }

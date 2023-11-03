@@ -17,8 +17,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "libft/libft.h"
-#	include <stdio.h>
-#	include <time.h>
+
+# define DOWN 0
+# define UP 1
+# define A 0
+# define B 1
 
 typedef struct s_pushswap{
 	int	*list[2];
@@ -26,7 +29,7 @@ typedef struct s_pushswap{
 
 }	t_pushswap;
 
-int		push(t_pushswap *dlist, int l_to);
+int		push(t_pushswap *dlist, int from);
 void	rotate(t_pushswap dlist, int l, int dir);
 void	swap(t_pushswap *dlist, int l);
 

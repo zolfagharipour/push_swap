@@ -20,14 +20,14 @@ int	s_exist(t_pushswap dlist, int i, int len)
 	k = i;
 	if (i == -1)
 	{
-		k = dlist.len[0] - 1;
+		k = dlist.len[A] - 1;
 		i = 0;
 	}
 	while (i <= k)
 	{
 		j = 0;
-		while (dlist.list[0][(i + j) % dlist.len[0]]
-			< dlist.list[0][(i + j + 1) % dlist.len[0]])
+		while (dlist.list[A][(i + j) % dlist.len[A]]
+			< dlist.list[A][(i + j + 1) % dlist.len[A]])
 		{
 			j++;
 		}
@@ -52,15 +52,15 @@ static int	optimum(t_pushswap dlist, int len)
 	int	ret;
 
 	if (len <= 3)
-		return (dlist.len[0] - 3);
+		return (dlist.len[A] - 3);
 	i = 0;
 	ret = 0;
 	opt = dlist.len[0];
-	while (i < dlist.len[0])
+	while (i < dlist.len[A])
 	{
-		if (s_exist(dlist, i, len) && opt > ft_abs(i + len - dlist.len[0]))
+		if (s_exist(dlist, i, len) && opt > ft_abs(i + len - dlist.len[A]))
 		{
-			opt = ft_abs(i + len - dlist.len[0]);
+			opt = ft_abs(i + len - dlist.len[A]);
 			ret = i;
 		}
 		i++;
@@ -73,11 +73,11 @@ int	series(t_pushswap *dlist, int op)
 	int	len;
 	int	i;
 
-	len = dlist->len[0];
+	len = dlist->len[A];
 	while (len > 3)
 	{
 		i = 0;
-		while (i < dlist->len[0])
+		while (i < dlist->len[A])
 		{
 			if (s_exist(*dlist, i, len))
 			{

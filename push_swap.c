@@ -19,8 +19,8 @@ int	main(int ac, char **av)
 	if (!init(&dlist, ac) || !ft_read(&dlist, ac, av) || !duplicate(dlist))
 		return (0);
 	if (!ft_sort(&dlist))
-		return (free(dlist.list[0]), 0);
-	free(dlist.list[0]);
-	free(dlist.list[1]);
+		return (free(dlist.list[A]), 0);
+	free(dlist.list[A]);
+	free(dlist.list[B]);
 	return (1);
 }

@@ -14,32 +14,31 @@
 
 static int	instruction_do(t_pushswap *dlist, char *str)
 {
-	if (!ft_strncmp(str, "pa", 2) && !push(dlist, 1))
+	if (!ft_strncmp(str, "pa", 2) && !push(dlist, B))
 		return (free(str), 0);
-	else if (!ft_strncmp(str, "pb", 2) && !push(dlist, 0))
+	else if (!ft_strncmp(str, "pb", 2) && !push(dlist, A))
 		return (free(str), 0);
 	else if (!ft_strncmp(str, "ra", 2))
-		return (rotate(*dlist, 0, 1), 1);
+		return (rotate(*dlist, A, UP), 1);
 	else if (!ft_strncmp(str, "rb", 2))
-		return (rotate(*dlist, 1, 1), 1);
-	else if (!ft_strncmp(str, "rr", 2))
-		return (rotate(*dlist, 0, 1), rotate(*dlist, 1, 1), 1);
+		return (rotate(*dlist, B, UP), 1);
+	else if (!ft_strncmp(str, "rr", 3))
+		return (rotate(*dlist, A, UP), rotate(*dlist, B, UP), 1);
 	else if (!ft_strncmp(str, "rra", 3))
-		return (rotate(*dlist, 0, 0), 1);
+		return (rotate(*dlist, A, DOWN), 1);
 	else if (!ft_strncmp(str, "rrb", 3))
-		return (rotate(*dlist, 1, 0), 1);
+		return (rotate(*dlist, B, DOWN), 1);
 	else if (!ft_strncmp(str, "rrr", 3))
-		return (rotate(*dlist, 0, 0), rotate(*dlist, 1, 0), 1);
+		return (rotate(*dlist, A, DOWN), rotate(*dlist, B, DOWN), 1);
 	else if (!ft_strncmp(str, "sa", 2))
-		return (swap(dlist, 0), 1);
+		return (swap(dlist, A), 1);
 	else if (!ft_strncmp(str, "sb", 2))
-		return (swap(dlist, 1), 1);
+		return (swap(dlist, B), 1);
 	else if (!ft_strncmp(str, "ss", 2))
-		return (swap(dlist, 0), swap(dlist, 1), 1);
+		return (swap(dlist, A), swap(dlist, B), 1);
 	if (!ft_strncmp(str, "pa", 2) || !ft_strncmp(str, "pb", 2))
 		return (1);
-	write(2, "Error1\n", 7);
-	printf("[%s]", str);
+	write(2, "Error\n", 7);
 	return (free(str), 0);
 }
 
@@ -61,14 +60,14 @@ int	instruction_read(t_pushswap *dlist)
 		if (ft_strlen(str) > 3 || (ft_strlen(str) == 3
 				&& ft_strncmp(str, "rr", 2)))
 		{
-			write(2, "Error2\n", 7);
+			write(2, "Error\n", 7);
 			return (free(str), 0);
 		}
 		if (!instruction_do(dlist, str))
 			return (0);
 		str = get_next_line(0);
 	}
-	if (s_exist(*dlist, 0, dlist->len[0]) && dlist->len[1] == 0)
+	if (s_exist(*dlist, 0, dlist->len[A]) && dlist->len[B] == 0)
 	{
 		write(1, "OK\n", 3);
 		return (free(str), 1);
@@ -80,12 +79,11 @@ int	instruction_read(t_pushswap *dlist)
 int	main(int ac, char **av)
 {
 	t_pushswap	dlist;
-
 	if (!init(&dlist, ac) || !ft_read(&dlist, ac, av) || !duplicate(dlist))
 		return (0);
 	if (!instruction_read(&dlist))
 		return (0);
-	free(dlist.list[0]);
-	free(dlist.list[1]);
+	free(dlist.list[A]);
+	free(dlist.list[B]);
 	return (1);
 }
