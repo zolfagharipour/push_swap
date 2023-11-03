@@ -8,40 +8,44 @@ SRCS =  assign_value.c \
 		sort.c \
 		tester.c \
 		detach.c \
-		push_swap.c
+		push_swap.c \
+		list_init.c
+
 BONUS = checker.c \
-		checker_urils.c \
-		./get_next_line/get_next_line.c \
-		./get_next_line/get_next_line_utils.c
+		assign_value.c \
+		instructions.c \
+		series.c \
+		sort.c \
+		tester.c \
+		detach.c \
+		list_init.c
+
 OBJS = ${SRCS:.c=.o}
 BONUS_OBJS = ${BONUS:.c=.o}
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
-
-RM = rm -rf
+CFLAGS = -Wall -Wextra -Werror
+RM	=	rm -rf
 
 all: ${NAME}
-${NAME}: ${OBJS}
+${NAME}: ${SRCS}
 	@${MAKE} -C ./libft
-	@${CC} ${CFLAGS} ${OBJS} ./libft/libft.a -o ${NAME}
+	@${CC} ${CFLAGS} ${SRCS} ./libft/libft.a -o ${NAME}
 
-${CHECK}: ${BONUS_OBJS}
-	@${MAKE} -C ./libft
-	@${CC} ${CFLAGS} ${OBJS} ./libft/libft.a -o ${NAME}
+${CHEK}: ${BONUS}
 
-bonus: ${CHEK} ${NAME}
+bonus: ${CHEK} ${SRCS}
 	@${MAKE} -C ./libft
-	@${CC} ${CFLAGS} ${OBJS} ./libft/libft.a -o ${CHECK}
+	@${CC} ${CFLAGS} ${BONUS} ./libft/libft.a -o ${CHECK}
 
 clean: 
 	@${MAKE} -C ./libft fclean
-	@${RM} ${OBJS}
+	@${RM} ${OBJS} ${BONUS_OBJS}
 
 
 fclean: clean
-	@${RM} ${NAME}
+	@${RM} ${NAME} ${CHECK}
 
 re: fclean all
 

@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzolfagh <zolfagharipour@gmail.com>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/27 14:57:59 by mzolfagh          #+#    #+#             */
+/*   Updated: 2023/10/27 14:58:02 by mzolfagh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-static	void	rotate_print(t_pushswap *dlist, int	rotate_a, int rotate_b)
+static void	rotate_print(t_pushswap *dlist, int rotate_a, int rotate_b)
 {
-	while(rotate_a != 0 || rotate_b != 0)
+	while (rotate_a != 0 || rotate_b != 0)
 	{
 		if (rotate_a > 0 && rotate_b > 0)
-			(printf("rr\n"),rotate(*dlist, 1, 1), rotate(*dlist, 0, 1));
+			(printf("rr\n"), rotate(*dlist, 1, 1), rotate(*dlist, 0, 1));
 		else if (rotate_a == 0 && rotate_b > 0)
 			(printf("rb\n"), rotate(*dlist, 1, 1));
 		else if (rotate_a > 0 && rotate_b == 0)
@@ -41,17 +53,17 @@ int	ft_sort(t_pushswap *dlist)
 
 	if (!detach(dlist))
 		return (0);
-	while(0 < dlist->len[1])
+	while (0 < dlist->len[1])
 	{
- 		values = assign_values(*dlist);
+		values = assign_values(*dlist);
 		if (!values)
 		{
 			free(dlist->list[0]);
 			free(dlist->list[1]);
-			return(0);
+			return (0);
 		}
 		min = smallest(values, dlist->len[1]);
- 		i = check_placement(*dlist, min);
+		i = check_placement(*dlist, min);
 		if (dlist->len[0] - i < i)
 			i = i - dlist->len[0];
 		if (dlist->len[1] - min < min)

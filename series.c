@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   series.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzolfagh <zolfagharipour@gmail.com>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/27 14:57:02 by mzolfagh          #+#    #+#             */
+/*   Updated: 2023/10/27 14:57:03 by mzolfagh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	s_exist(t_pushswap dlist, int i, int len)
 {
-	int j;
-	int k;
+	int	j;
+	int	k;
 
 	k = i;
 	if (i == -1)
@@ -14,7 +26,8 @@ int	s_exist(t_pushswap dlist, int i, int len)
 	while (i <= k)
 	{
 		j = 0;
-		while (dlist.list[0][(i + j) % dlist.len[0]] < dlist.list[0][(i + j + 1) % dlist.len[0]])
+		while (dlist.list[0][(i + j) % dlist.len[0]]
+			< dlist.list[0][(i + j + 1) % dlist.len[0]])
 		{
 			j++;
 		}
@@ -54,7 +67,6 @@ static int	optimum(t_pushswap dlist, int len)
 	}
 	return (ret);
 }
-
 
 int	series(t_pushswap *dlist, int op)
 {

@@ -1,5 +1,16 @@
-#include "push_swap.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   instructions.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzolfagh <zolfagharipour@gmail.com>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/27 14:53:22 by mzolfagh          #+#    #+#             */
+/*   Updated: 2023/10/27 14:53:24 by mzolfagh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "push_swap.h"
 
 void	swap(t_pushswap *dlist, int l)
 {
@@ -13,7 +24,7 @@ void	swap(t_pushswap *dlist, int l)
 void	rotate(t_pushswap dlist, int l, int dir)
 {
 	int	tmp;
-	int i;
+	int	i;
 
 	if (dir == 1)
 	{
@@ -44,7 +55,7 @@ int	push(t_pushswap *dlist, int l_from)
 	int	*tmpf;
 	int	*tmpt;
 	int	l_to;
-	int i;
+	int	i;
 
 	l_to = (l_from * l_from - 1) * -1;
 	tmpf = (int *)malloc(sizeof(int) * (dlist->len[l_from] - 1));
@@ -52,7 +63,7 @@ int	push(t_pushswap *dlist, int l_from)
 		return (0);
 	tmpt = (int *)malloc(sizeof(int) * (dlist->len[l_to] + 1));
 	if (!tmpt)
-		return(free(tmpf), 0);
+		return (free(tmpf), 0);
 	i = 0;
 	tmpt[0] = dlist->list[l_from][0];
 	while (dlist->len[l_from] > i + 1 || dlist->len[l_to] > i)

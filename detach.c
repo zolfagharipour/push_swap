@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   detach.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzolfagh <zolfagharipour@gmail.com>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/27 14:51:29 by mzolfagh          #+#    #+#             */
+/*   Updated: 2023/10/27 14:51:31 by mzolfagh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static int	ft_init(t_pushswap *dlist)
 {
 	int	i;
-	int dir;
-	int ret;
+	int	dir;
+	int	ret;
 
 	i = dlist->len[0] - (series(dlist, 0) + series(dlist, 1));
 	dir = 0;
@@ -12,7 +24,7 @@ static int	ft_init(t_pushswap *dlist)
 		dir = 1;
 	ret = series(dlist, 0) + i;
 	i = ft_abs(i);
-	while(i > 0)
+	while (i > 0)
 	{
 		rotate(*dlist, 0, dir);
 		if (dir == 0)
@@ -30,20 +42,17 @@ static int	swap_series(t_pushswap *dlist)
 
 	i = 0;
 	swap(dlist, 0);
-
 	if (s_exist(*dlist, -1, dlist->len[0]) && i < dlist->len[0])
 	{
 		printf("sa\n");
 		return (1);
-	}	
+	}
 	else
 	{
 		swap(dlist, 0);
 		return (0);
 	}
-
 }
-
 
 static int	swap_check(t_pushswap *dlist, int i_serie)
 {
@@ -59,11 +68,6 @@ static int	swap_check(t_pushswap *dlist, int i_serie)
 		swap(dlist, 1);
 		printf("ss\n");
 	}
-	// else
-	// {
-	// 	swap(dlist, 0);
-	// 	printf("sa\n");
-	// }
 	return (1);
 }
 
@@ -72,7 +76,7 @@ int	detach(t_pushswap *dlist)
 	int	i_serie;
 
 	i_serie = ft_init(dlist);
-	while(0 <= i_serie)
+	while (0 <= i_serie)
 	{
 		swap_check(dlist, i_serie);
 		if (s_exist(*dlist, -1, dlist->len[0]))
