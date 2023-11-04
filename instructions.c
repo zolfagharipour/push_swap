@@ -50,35 +50,42 @@ void	rotate(t_pushswap dlist, int st, int dir)
 	}
 }
 
+static void	push_reassign(t_pushswap *dlist, int **tmp, int from)
+{
+	int	to;
+
+	to = (from * from - 1) * -1;
+	dlist->len[from]--;
+	dlist->len[to]++;
+	free(dlist->list[from]);
+	dlist->list[from] = tmp[from];
+	free(dlist->list[to]);
+	dlist->list[to] = tmp[to];
+}
+
 int	push(t_pushswap *dlist, int from)
 {
-	int	*tmpf;
-	int	*tmpt;
+	int	*tmp[2];
 	int	to;
 	int	i;
 
 	to = (from * from - 1) * -1;
-	tmpf = (int *)malloc(sizeof(int) * (dlist->len[from] - 1));
-	if (!tmpf)
+	tmp[from] = (int *)malloc(sizeof(int) * (dlist->len[from] - 1));
+	if (!tmp[from])
 		return (0);
-	tmpt = (int *)malloc(sizeof(int) * (dlist->len[to] + 1));
-	if (!tmpt)
-		return (free(tmpf), 0);
+	tmp[to] = (int *)malloc(sizeof(int) * (dlist->len[to] + 1));
+	if (!tmp[to])
+		return (free(tmp[from]), 0);
 	i = 0;
-	tmpt[0] = dlist->list[from][0];
+	tmp[to][0] = dlist->list[from][0];
 	while (dlist->len[from] > i + 1 || dlist->len[to] > i)
 	{
 		if (dlist->len[from] > i + 1)
-			tmpf[i] = dlist->list[from][i + 1];
+			tmp[from][i] = dlist->list[from][i + 1];
 		if (dlist->len[to] > i)
-			tmpt[i + 1] = dlist->list[to][i];
+			tmp[to][i + 1] = dlist->list[to][i];
 		i++;
 	}
-	dlist->len[from]--;
-	dlist->len[to]++;
-	free(dlist->list[from]);
-	dlist->list[from] = tmpf;
-	free(dlist->list[to]);
-	dlist->list[to] = tmpt;
+	push_reassign(dlist, tmp, from);
 	return (1);
 }

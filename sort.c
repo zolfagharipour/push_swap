@@ -12,32 +12,41 @@
 
 #include "push_swap.h"
 
+static void	rp_helper(t_pushswap *dlist, int mode)
+{
+	if (mode == 0)
+	{
+		(write(1, "rra\n", 4), rotate(*dlist, A, DOWN));
+		(write(1, "rb\n", 3), rotate(*dlist, B, UP));
+	}
+	else
+	{
+		(write(1, "ra\n", 3), rotate(*dlist, A, UP));
+		(write(1, "rrb\n", 4), rotate(*dlist, B, DOWN));
+	}
+}
+
 static void	rotate_print(t_pushswap *dlist, int rotate_a, int rotate_b)
 {
 	while (rotate_a != 0 || rotate_b != 0)
 	{
 		if (rotate_a > 0 && rotate_b > 0)
-			(write(1, "rr\n", 3), rotate(*dlist, 1, UP), rotate(*dlist, 0, UP));
+			(write(1, "rr\n", 3), rotate(*dlist, B, UP), rotate(*dlist, A, UP));
 		else if (rotate_a == 0 && rotate_b > 0)
-			(write(1, "rb\n", 3), rotate(*dlist, 1, UP));
+			(write(1, "rb\n", 3), rotate(*dlist, B, UP));
 		else if (rotate_a > 0 && rotate_b == 0)
-			(write(1, "ra\n", 3), rotate(*dlist, 0, UP));
+			(write(1, "ra\n", 3), rotate(*dlist, A, UP));
 		else if (rotate_a < 0 && rotate_b < 0)
-			(write(1, "rrr\n", 4), rotate(*dlist, 1, DOWN), rotate(*dlist, 0, DOWN));
+			(write(1, "rrr\n", 4), rotate(*dlist, B, DOWN),
+				rotate(*dlist, A, DOWN));
 		else if (rotate_a == 0 && rotate_b < 0)
-			(write(1, "rrb\n", 4), rotate(*dlist, 1, DOWN));
+			(write(1, "rrb\n", 4), rotate(*dlist, B, DOWN));
 		else if (rotate_a < 0 && rotate_b == 0)
-			(write(1, "rra\n", 4), rotate(*dlist, 0, DOWN));
+			(write(1, "rra\n", 4), rotate(*dlist, A, DOWN));
 		else if (rotate_a < 0 && rotate_b > 0)
-		{
-			(write(1, "rra\n", 4), rotate(*dlist, 0, DOWN));
-			(write(1, "rb\n", 3), rotate(*dlist, 1, UP));
-		}
+			rp_helper(dlist, 0);
 		else if (rotate_a > 0 && rotate_b < 0)
-		{
-			(write(1, "ra\n", 3), rotate(*dlist, 0, UP));
-			(write(1, "rrb\n", 4), rotate(*dlist, 1, DOWN));
-		}
+			rp_helper(dlist, 1);
 		if (rotate_a != 0)
 			rotate_a -= rotate_a / ft_abs(rotate_a);
 		if (rotate_b != 0)
@@ -45,21 +54,18 @@ static void	rotate_print(t_pushswap *dlist, int rotate_a, int rotate_b)
 	}
 }
 
-int	ft_sort(t_pushswap *dlist)
+static int	sort_loop(t_pushswap *dlist)
 {
 	int	*values;
 	int	min;
 	int	i;
 
-	if (!detach(dlist))
-		return (0);
 	while (0 < dlist->len[B])
 	{
 		values = assign_values(*dlist);
 		if (!values)
 		{
-			free(dlist->list[A]);
-			free(dlist->list[B]);
+			(free(dlist->list[A]), free(dlist->list[B]));
 			return (0);
 		}
 		min = smallest(values, dlist->len[B]);
@@ -74,6 +80,17 @@ int	ft_sort(t_pushswap *dlist)
 			return (free(dlist->list[A]), free(dlist->list[B]), 0);
 		write(1, "pa\n", 3);
 	}
+	return (1);
+}
+
+int	ft_sort(t_pushswap *dlist)
+{
+	int	min;
+
+	if (!detach(dlist))
+		return (0);
+	if (!sort_loop(dlist))
+		return (0);
 	min = smallest(dlist->list[A], dlist->len[A]);
 	if (dlist->len[A] - min > min)
 		rotate_print(dlist, min, 0);

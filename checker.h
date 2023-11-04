@@ -30,8 +30,8 @@ typedef struct s_pushswap{
 }	t_pushswap;
 
 int		push(t_pushswap *dlist, int from);
-void	rotate(t_pushswap dlist, int l, int dir);
-void	swap(t_pushswap *dlist, int l);
+void	rotate(t_pushswap dlist, int st, int dir);
+void	swap(t_pushswap *dlist, int st);
 
 int		s_exist(t_pushswap dlist, int i, int len);
 int		series(t_pushswap *dlist, int op);
