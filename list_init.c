@@ -55,6 +55,22 @@ static int	digit_check(char *av[], int i)
 	return (1);
 }
 
+int quotes(char **av)
+{
+	int 	i;
+	char	*str;
+	char	*tmp;
+
+	str = NULL;
+	while (av[i])
+	{
+		tmp = ft_strjoin(str, av[i]);
+		free (str);
+		str = tmp;
+		i++;
+	}
+}
+
 int	ft_read(t_pushswap *dlist, int ac, char **av)
 {
 	int		i;
@@ -71,7 +87,7 @@ int	ft_read(t_pushswap *dlist, int ac, char **av)
 		if (ft_strncmp(av[i], tmp, ft_strlen(av[i])))
 		{
 			write(2, "Error\n", 7);
-			return (free(dlist->list[A]), free(dlist->list[B]), 0);
+			return (free(dlist->list[A]), free(dlist->list[B]), free(tmp), 0);
 		}
 		free(tmp);
 		dlist->list[A][i - 1] = ft_atoi(av[i]);
