@@ -93,11 +93,7 @@ int	main(int ac, char **av)
 	t_pushswap	dlist;
 
 	if (!init(&dlist, ac) || !ft_read(&dlist, ac, av) || !duplicate(dlist))
-	{
-		free(dlist.list[A]);
-		free(dlist.list[B]);
 		return (0);
-	}
 	if (!instruction_read(&dlist))
 	{
 		free(dlist.list[A]);

@@ -21,8 +21,6 @@
 //     }
 // }
 
-
-
 // void	print_pushswap(t_pushswap dlist, int *values)
 // {
 // 	int	i = 0;

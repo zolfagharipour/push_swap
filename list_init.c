@@ -37,29 +37,38 @@ int	duplicate(t_pushswap dlist)
 	return (1);
 }
 
+static int	digit_check(char *av[], int i)
+{
+	int	j;
+
+	j = 0;
+	while (av[i][j] != '\0')
+	{
+		if (!ft_isdigit(av[i][j])
+			&& (j == 0 && !(av[i][j] != '-' || av[i][j] != '+')))
+		{
+			write(2, "Error\n", 7);
+			return (0);
+		}
+		j++;
+	}
+	return (1);
+}
+
 int	ft_read(t_pushswap *dlist, int ac, char **av)
 {
 	int		i;
-	int		j;
 	char	*tmp;
 
 	i = 1;
 	while (i < ac)
 	{
-		j = 0;
-		while (av[i][j] != '\0')
-		{
-			if (!ft_isdigit(av[i][j]) && (j < 0 || av[i][j] != '-'))
-			{
-				write(2, "Error\n", 7);
-				return (free(dlist->list[A]), free(dlist->list[B]), 0);
-			}
-			j++;
-		}
+		if (!digit_check(av, i))
+			return (free(dlist->list[A]), free(dlist->list[B]), 0);
 		tmp = ft_itoa(ft_atoi(av[i]));
 		if (!tmp)
 			return (free(dlist->list[A]), free(dlist->list[B]), 0);
-		if (ft_strncmp(av[i], tmp, 10))
+		if (ft_strncmp(av[i], tmp, ft_strlen(av[i])))
 		{
 			write(2, "Error\n", 7);
 			return (free(dlist->list[A]), free(dlist->list[B]), 0);
