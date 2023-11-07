@@ -49,4 +49,7 @@ int		duplicate(t_pushswap dlist);
 int		ft_read(t_pushswap *dlist, int ac, char **av);
 int		init(t_pushswap *dlist, int ac);
 
+int		range_zero_check(char *av, char *str);
+int		split_av(t_pushswap *dlist, char *str, int ac, int j);
+
 #endif

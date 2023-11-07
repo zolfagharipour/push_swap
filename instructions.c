@@ -16,9 +16,12 @@ void	swap(t_pushswap *dlist, int st)
 {
 	int	tmp;
 
-	tmp = dlist->list[st][0];
-	dlist->list[st][0] = dlist->list[st][1];
-	dlist->list[st][1] = tmp;
+	if (dlist->len[st] > 1)
+	{
+		tmp = dlist->list[st][0];
+		dlist->list[st][0] = dlist->list[st][1];
+		dlist->list[st][1] = tmp;
+	}
 }
 
 void	rotate(t_pushswap dlist, int st, int dir)
@@ -26,7 +29,7 @@ void	rotate(t_pushswap dlist, int st, int dir)
 	int	tmp;
 	int	i;
 
-	if (dir == UP)
+	if (dir == UP && dlist.len[st] > 1)
 	{
 		tmp = dlist.list[st][0];
 		i = 1;
@@ -37,7 +40,7 @@ void	rotate(t_pushswap dlist, int st, int dir)
 		}
 		dlist.list[st][i - 1] = tmp;
 	}
-	else if (dir == DOWN)
+	else if (dir == DOWN && dlist.len[st] > 1)
 	{
 		tmp = dlist.list[st][dlist.len[st] - 1];
 		i = dlist.len[st] - 1;
@@ -66,26 +69,27 @@ static void	push_reassign(t_pushswap *dlist, int **tmp, int from)
 int	push(t_pushswap *dlist, int from)
 {
 	int	*tmp[2];
-	int	to;
 	int	i;
 
-	to = (from * from - 1) * -1;
-	tmp[from] = (int *)malloc(sizeof(int) * (dlist->len[from] - 1));
-	if (!tmp[from])
-		return (0);
-	tmp[to] = (int *)malloc(sizeof(int) * (dlist->len[to] + 1));
-	if (!tmp[to])
-		return (free(tmp[from]), 0);
-	i = 0;
-	tmp[to][0] = dlist->list[from][0];
-	while (dlist->len[from] > i + 1 || dlist->len[to] > i)
+	if (dlist->len[from] > 0)
 	{
-		if (dlist->len[from] > i + 1)
-			tmp[from][i] = dlist->list[from][i + 1];
-		if (dlist->len[to] > i)
-			tmp[to][i + 1] = dlist->list[to][i];
-		i++;
+		tmp[from] = (int *)malloc(sizeof(int) * (dlist->len[from] - 1));
+		if (!tmp[from])
+			return (0);
+		tmp[1 - from] = (int *)malloc(sizeof(int) * (dlist->len[1 - from] + 1));
+		if (!tmp[1 - from])
+			return (free(tmp[from]), 0);
+		i = 0;
+		tmp[1 - from][0] = dlist->list[from][0];
+		while (dlist->len[from] > i + 1 || dlist->len[1 - from] > i)
+		{
+			if (dlist->len[from] > i + 1)
+				tmp[from][i] = dlist->list[from][i + 1];
+			if (dlist->len[1 - from] > i)
+				tmp[1 - from][i + 1] = dlist->list[1 - from][i];
+			i++;
+		}
+		push_reassign(dlist, tmp, from);
 	}
-	push_reassign(dlist, tmp, from);
 	return (1);
 }

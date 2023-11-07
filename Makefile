@@ -8,6 +8,7 @@ SRCS =  assign_value.c \
 		sort.c \
 		detach.c \
 		push_swap.c \
+		quotes.c\
 		list_init.c
 
 BONUS = checker.c \
@@ -16,6 +17,7 @@ BONUS = checker.c \
 		series.c \
 		sort.c \
 		detach.c \
+		quotes.c\
 		list_init.c
 
 OBJS = ${SRCS:.c=.o}

@@ -12,6 +12,24 @@
 
 #include "push_swap.h"
 
+static int	digit_check(char *av[], int i)
+{
+	int	j;
+
+	j = 0;
+	while (av[i][j] != '\0')
+	{
+		if (!ft_isdigit(av[i][j])
+			&& (j == 0 && !(av[i][j] != '-' || av[i][j] != '+')))
+		{
+			write(2, "Error\n", 7);
+			return (0);
+		}
+		j++;
+	}
+	return (1);
+}
+
 int	duplicate(t_pushswap dlist)
 {
 	int	i;
@@ -37,48 +55,14 @@ int	duplicate(t_pushswap dlist)
 	return (1);
 }
 
-static int	digit_check(char *av[], int i)
-{
-	int	j;
-
-	j = 0;
-	while (av[i][j] != '\0')
-	{
-		if (!ft_isdigit(av[i][j])
-			&& (j == 0 && !(av[i][j] != '-' || av[i][j] != '+')))
-		{
-			write(2, "Error\n", 7);
-			return (0);
-		}
-		j++;
-	}
-	return (1);
-}
-
-static int	range_zero_check(char *av, char * str)
-{
-	if (str[0] == '-' && av[0] != '-')
-		return (0);
-	if (av[0] == '+' || av[0] == '-')
-		av++;
-	if (str[0] == '-')
-		str++;
-	while(av && ft_strncmp(av, str, ft_strlen(str)))
-	{
-		if (av[0] == '0')
-			av++;
-		else
-			return (0);
-	}
-	return (1);
-}
-
 int	ft_read(t_pushswap *dlist, int ac, char **av)
 {
 	int		i;
+	int		j;
 	char	*tmp;
 
 	i = 1;
+	j = 0;
 	while (i < ac)
 	{
 		if (!digit_check(av, i))
@@ -92,7 +76,9 @@ int	ft_read(t_pushswap *dlist, int ac, char **av)
 			return (free(dlist->list[A]), free(dlist->list[B]), free(tmp), 0);
 		}
 		free(tmp);
-		dlist->list[A][i - 1] = ft_atoi(av[i]);
+		j = split_av(dlist, av[i], ac, j);
+		if (j == 0)
+			return (free(dlist->list[A]), free(dlist->list[B]), 0);
 		i++;
 	}
 	return (1);
