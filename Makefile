@@ -6,7 +6,6 @@ SRCS =  assign_value.c \
 		instructions.c \
 		series.c \
 		sort.c \
-		tester.c \
 		detach.c \
 		push_swap.c \
 		list_init.c
@@ -16,7 +15,6 @@ BONUS = checker.c \
 		instructions.c \
 		series.c \
 		sort.c \
-		tester.c \
 		detach.c \
 		list_init.c
 
@@ -29,23 +27,22 @@ CFLAGS = -Wall -Wextra -Werror -g
 RM	=	rm -rf
 
 all: ${NAME}
-${NAME}: ${SRCS}
-	@${MAKE} -C ./libft
-	@${CC} ${CFLAGS} ${SRCS} ./libft/libft.a -o ${NAME}
 
-${CHEK}: ${BONUS}
+${NAME}: ${OBJS}
+	make --no-print-directory -C ./libft
+	${CC} ${CFLAGS} -o ${NAME} $^ ./libft/libft.a
 
-bonus: ${CHEK} ${SRCS}
-	@${MAKE} -C ./libft
-	@${CC} ${CFLAGS} ${BONUS} ./libft/libft.a -o ${CHECK}
+bonus: ${BONUS_OBJS}
+	make --no-print-directory -C ./libft
+	${CC} ${CFLAGS} -o ${CHECK} $^ ./libft/libft.a
 
 clean: 
-	@${MAKE} -C ./libft fclean
-	@${RM} ${OBJS} ${BONUS_OBJS}
+	make --no-print-directory -C ./libft fclean
+	${RM} ${OBJS} ${BONUS_OBJS}
 
 
 fclean: clean
-	@${RM} ${NAME} ${CHECK}
+	${RM} ${NAME} ${CHECK}
 
 re: fclean all
 
