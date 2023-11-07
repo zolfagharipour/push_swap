@@ -55,20 +55,22 @@ static int	digit_check(char *av[], int i)
 	return (1);
 }
 
-int quotes(char **av)
+static int	range_zero_check(char *av, char * str)
 {
-	int 	i;
-	char	*str;
-	char	*tmp;
-
-	str = NULL;
-	while (av[i])
+	if (str[0] == '-' && av[0] != '-')
+		return (0);
+	if (av[0] == '+' || av[0] == '-')
+		av++;
+	if (str[0] == '-')
+		str++;
+	while(av && ft_strncmp(av, str, ft_strlen(str)))
 	{
-		tmp = ft_strjoin(str, av[i]);
-		free (str);
-		str = tmp;
-		i++;
+		if (av[0] == '0')
+			av++;
+		else
+			return (0);
 	}
+	return (1);
 }
 
 int	ft_read(t_pushswap *dlist, int ac, char **av)
@@ -84,7 +86,7 @@ int	ft_read(t_pushswap *dlist, int ac, char **av)
 		tmp = ft_itoa(ft_atoi(av[i]));
 		if (!tmp)
 			return (free(dlist->list[A]), free(dlist->list[B]), 0);
-		if (ft_strncmp(av[i], tmp, ft_strlen(av[i])))
+		if (!range_zero_check(av[i], tmp))
 		{
 			write(2, "Error\n", 7);
 			return (free(dlist->list[A]), free(dlist->list[B]), free(tmp), 0);
