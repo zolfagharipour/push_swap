@@ -87,6 +87,12 @@ int	ft_sort(t_pushswap *dlist)
 {
 	int	min;
 
+	if (dlist->len[A] == 2 && !s_exist(*dlist, 0, 2))
+	{
+		swap(dlist, A);
+		write(1, "sa\n", 3);
+		return (1);
+	}
 	if (!detach(dlist))
 		return (0);
 	if (!sort_loop(dlist))

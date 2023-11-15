@@ -99,13 +99,13 @@ int	split_av(t_pushswap *dlist, char *str, int ac, int j)
 
 int	range_zero_check(char *av, char *str)
 {
-	if (str[0] == '-' && av[0] != '-')
+	if (str[0] == '+' && av[0] != '-')
 		return (0);
 	if (av[0] == '+' || av[0] == '-')
 		av++;
 	if (str[0] == '-')
 		str++;
-	while (av && ft_strncmp(av, str, ft_strlen(str)))
+	while (av && ft_strncmp(av, str, ft_strlen(av)))
 	{
 		if (av[0] == '0')
 			av++;
