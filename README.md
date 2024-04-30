@@ -8,7 +8,7 @@ This repository is intended as a reference and educational tool. **42 students a
 
 ## Rules
 
-- **Stack Initialization**: Initially, stack `a` contains a random set of negative and/or positive integers without any duplicates, and stack `b` is empty.
+- **Stack Initialization**: Initially, stack `a` contains a random set of negative and/or positive integers, and stack `b` is empty.
 - **Goal**: Sort the integers in stack `a` in ascending order.
 
 ### Operations
@@ -28,7 +28,7 @@ This repository is intended as a reference and educational tool. **42 students a
 ## Compilation
 
 ```bash
-git clone https://github.com/yourusername/push_swap.git
+git clone https://github.com/zolfagharipour/push_swap.git
 cd push_swap
 make
 ```
@@ -36,7 +36,7 @@ make
 
 To run the program and sort the numbers:
 ```bash
-./push_swap 4 67 3 87 23 | ./checker 4 67 3 87 23
+./push_swap 4 67 3 87 23
 ```
 Use the checker program to validate the sort:
 ```bash
