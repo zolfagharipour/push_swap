@@ -30,4 +30,6 @@ This repository is intended as a reference and educational tool. **42 students a
 ```bash
 git clone https://github.com/yourusername/push_swap.git
 cd push_swap
-make
+make```
+OR
+make bonus
