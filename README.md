@@ -30,6 +30,19 @@ This repository is intended as a reference and educational tool. **42 students a
 ```bash
 git clone https://github.com/yourusername/push_swap.git
 cd push_swap
-make```
-OR
-make bonus
+make
+```
+## Usage
+
+To run the program and sort the numbers:
+```bash
+./push_swap 4 67 3 87 23 | ./checker 4 67 3 87 23
+```
+Use the checker program to validate the sort:
+```bash
+./push_swap ARG | ./checker_linux ARG
+```
+or, if you used make bonus:
+```bash
+./push_swap ARG | ./checker ARG
+```
